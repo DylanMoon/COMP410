@@ -67,7 +67,12 @@ class Or(Binop):
 #     If you start needing a lot more code than that, ask for help to make sure
 #     you're still on-track.
 def eval_expr(expression):
-    pass
+    if(expression == True or expression == False):
+        return expression
+    elif(isinstance(expression, And)):
+        return eval_expr(expression.left) and eval_expr(expression.right)
+    elif(isinstance(expression, Or)):
+        return eval_expr(expression.left) or eval_expr(expression.right)
 
 # tests that evaluate to true
 true_tests = [And(True, True),
