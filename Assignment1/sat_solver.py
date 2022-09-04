@@ -180,8 +180,28 @@ def add_literal(immutable_map, variable, boolean):
 #     you're still on-track.
 #
 def solve(goals, literals):
-    pass
-
+    match goals:
+        case Nil():
+            return literals
+        case Cons():
+            literals = solve(goals.head,literals)
+            if(literals is None): return None
+            return solve(goals.tail, literals)
+        case Literal():
+            literals = add_literal(literals, goals.variable, goals.is_positive)
+            return literals
+        case And():
+            literals = solve(goals.left, literals)
+            literals = solve(goals.right, literals)
+            return literals
+        case Or():
+            literals_temp = literals
+            literals_temp = solve(goals.left, literals_temp)
+            if(literals_temp is None): return solve(goals.right, literals)
+            return literals
+        case _:
+            return None
+    
 def solve_one(formula):
     return solve(Cons(formula, Nil()), ImmutableMap())
 
