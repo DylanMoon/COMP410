@@ -4,9 +4,13 @@ purely bonus worth up to 15% of the assignment;
 you do not need to complete this for full credit.
 
 1.) How might you extend this to produce a list of
-    all possible soutions, as opposed to one solution?
+    all possible solutions, as opposed to one solution?
 
+I would probably create a wrapper function that would take the input and look for Or logic in the input, then see if each case of either the left or right being true leads to a solution, if it does, add that solution to a list of solutions in the wrapper function, and upon exit, return that list.
 
+One Or would lead to 2 solutions being checked:
+Two Ors would lead to 4 solutions being checked:
+In general 2^number_of_Ors solutions would need to be checked to form an exhaustive list 
 
 
 2.) How might you extend this to produce an efficient
@@ -15,3 +19,14 @@ you do not need to complete this for full credit.
     an efficient generator, it should _not_ just simply
     calculate all solutions at once and iterate over
     the precalculated solutions.
+
+To accomplish this, I would again have to do something similar to the above answer with one change.
+Instead of checking every solution upon the solve call, I would have to create some sort of structure in memory that represents the permutations of Or that lead to a solution and save the last solved solution's Or permutations.
+This would probably end up taking on the structure of a binary number, where 0 could represent the left branch of Or being a solution and 1 the right.
+Then using the last solved information, "increment the number by one" and try that, if it leads to a solution return the solution and save that number, if it does not lead to a solution, index the number again and continue with this pattern.
+
+For example, in an expression that has 2 Or statements, if the left branch of the first Or is valid, and the right branch of the Second Or is valid. I would end up with the following representations of the solutions:
+[0,0] : left, left
+[0,1] : left, right
+[1,1] : right, right
+These three solutions would keep being returned round-robin based on the last found solution and incrementing the 'binary' number each time looking for a solution.
