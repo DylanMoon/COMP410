@@ -13,6 +13,8 @@
 % and Celsius, respectively
 
 % ---REPLACE ME WITH CODE---
+f_to_c(F,C) :-
+    C is (F - 32) * (5 / 9).
 
 % With your conversion routine in hand, the following queries should
 % all succeed:
