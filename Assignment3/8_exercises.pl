@@ -12,6 +12,17 @@
 % then failure should occur.
 
 % ---REPLACE ME WITH CODE---
+sumAll(Low, High, Sum) :-
+    Low is High,
+    Low is Sum,
+    High is Sum.
+sumAll(Low, High, Sum) :-
+    Low < High,
+    NextHigh is High - 1,
+    NextSum is Sum - High,
+    sumAll(Low, NextHigh, NextSum).
+
+    
 
 % With your summation procedure in hand, the following queries
 % should all succeed (do NOT simply hardcode these values!):
@@ -52,3 +63,7 @@ directPrereq(comp256, phil230).
 %     to course B.  This serves as a recursive case.
 
 % ---REPLACE ME WITH CODE---
+prereq(Course, Prereq):-
+    directPrereq(Course, Prereq).
+prereq(Course,Prereq) :-
+    prereq(Prereq, X)
