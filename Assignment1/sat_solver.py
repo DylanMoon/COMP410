@@ -180,32 +180,43 @@ def add_literal(immutable_map, variable, boolean):
 #     you're still on-track.
 #
 
-""" Version for python 3.10 or later:
-def solve(goals, literals):
+# Version for python 3.10 or later:
+
+""" def solve(goals, literals):
     match goals:
         case Nil():
             return literals
         case Cons():
-            literals = solve(goals.head,literals)
-            if(literals is None): return None
-            return solve(goals.tail, literals)
-        case Literal():
-            literals = add_literal(literals, goals.variable, goals.is_positive)
-            return literals
-        case And():
-            literals = solve(goals.left, literals)
-            if literals is None: return None
-            literals = solve(goals.right, literals)
-            return literals
-        case Or():
-            literals_temp = literals
-            literals_temp = solve(goals.left, literals_temp)
-            return literals_temp or solve(goals.right, literals)
+            match goals.head:
+                case Literal():
+                    return add_literal(literals, goals.head.variable, goals.head.is_positive)
+                case And():
+                    literals = solve(Cons(goals.head.left, Nil()), literals)
+                    if literals is None: return None
+                    return solve(Cons(goals.head.right, Nil()), literals)
+                case Or():
+                     return solve(Cons(goals.head.left, Nil()), literals) or solve(Cons(goals.head.right, Nil()), literals)
+                case _:
+                    return None
         case _:
-            return None
-"""
-
+            return None """
+            
 def solve(goals, literals):
+    if isinstance(goals, Nil): return literals
+    if isinstance(goals, Cons):
+            if isinstance(goals.head, Literal):
+                return add_literal(literals, goals.head.variable, goals.head.is_positive)
+            if isinstance(goals.head, And):
+                literals = solve(Cons(goals.head.left, Nil()), literals)
+                if literals is None: return None
+                return solve(Cons(goals.head.right, Nil()), literals)
+            if isinstance(goals.head, Or):
+                    return solve(Cons(goals.head.left, Nil()), literals) or solve(Cons(goals.head.right, Nil()), literals)
+            return None
+    return None
+
+
+""" def solve(goals, literals):
     if isinstance(goals, Nil):
         return literals
     elif isinstance(goals, Cons):
@@ -225,7 +236,7 @@ def solve(goals, literals):
         literals_temp = solve(goals.left, literals_temp)
         return literals_temp or solve(goals.right, literals)
     else:
-        return None
+        return None """
 
 def solve_one(formula):
     return solve(Cons(formula, Nil()), ImmutableMap())
