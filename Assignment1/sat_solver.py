@@ -200,21 +200,6 @@ def add_literal(immutable_map, variable, boolean):
                     return None
         case _:
             return None """
-            
-def solve(goals, literals):
-    if isinstance(goals, Nil): return literals
-    if isinstance(goals, Cons):
-            if isinstance(goals.head, Literal):
-                return add_literal(literals, goals.head.variable, goals.head.is_positive)
-            if isinstance(goals.head, And):
-                literals = solve(Cons(goals.head.left, Nil()), literals)
-                if literals is None: return None
-                return solve(Cons(goals.head.right, Nil()), literals)
-            if isinstance(goals.head, Or):
-                    return solve(Cons(goals.head.left, Nil()), literals) or solve(Cons(goals.head.right, Nil()), literals)
-            return None
-    return None
-
 
 """ def solve(goals, literals):
     if isinstance(goals, Nil):
@@ -237,6 +222,25 @@ def solve(goals, literals):
         return literals_temp or solve(goals.right, literals)
     else:
         return None """
+            
+def solve(goals, literals):
+    if isinstance(goals, Nil): return literals
+    if isinstance(goals, Cons):
+        if isinstance(goals.head, Literal):
+            literals = add_literal(literals, goals.head.variable, goals.head.is_positive)
+        if isinstance(goals.head, And):
+            literals = solve(Cons(goals.head.left, goals.tail), literals)
+            if literals is None: return None
+            literals = solve(Cons(goals.head.right, goals.tail), literals)
+        if isinstance(goals.head, Or):
+            literals_temp = solve(Cons(goals.head.left, goals.tail), literals)
+            if literals_temp is None: return solve(Cons(goals.head.right, goals.tail), literals)
+            return literals
+        return solve(goals.tail, literals)
+    return None
+
+    #figure out why this is failing comutitive property
+
 
 def solve_one(formula):
     return solve(Cons(formula, Nil()), ImmutableMap())
@@ -245,6 +249,9 @@ def solve_one(formula):
 sat_tests = [And(Or(Literal("a", True),
                     Literal("b", False)),
                  Literal("b", True)), # (a || !b) && b
+                 And(Or(Literal("b", False),
+                    Literal("a", True)),
+                 Literal("b", True)), # (!b || a) && b
              And(Or(Literal("x", True),
                     Literal("y", False)),
                  Or(Literal("y", False),
