@@ -201,7 +201,7 @@ def solve(goals, literals):
             literals_temp = literals
             literals_temp = solve(goals.left, literals_temp)
             if(literals_temp is None): return solve(goals.right, literals)
-            return literals
+            return literals_temp
         case _:
             return None
              """
@@ -224,7 +224,7 @@ def solve(goals, literals):
         literals_temp = literals
         literals_temp = solve(goals.left, literals_temp)
         if literals_temp is None: return solve(goals.right, literals)
-        return literals
+        return literals_temp
     else:
         return None
 
