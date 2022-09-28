@@ -200,11 +200,11 @@ def solve(goals, literals):
         case Or():
             literals_temp = literals
             literals_temp = solve(goals.left, literals_temp)
-            if(literals_temp is None): return solve(goals.right, literals)
-            return literals_temp
+            return literals_temp or solve(goals.right, literals)
         case _:
             return None
-             """
+"""
+
 def solve(goals, literals):
     if isinstance(goals, Nil):
         return literals
@@ -223,8 +223,7 @@ def solve(goals, literals):
     elif isinstance(goals, Or):
         literals_temp = literals
         literals_temp = solve(goals.left, literals_temp)
-        if literals_temp is None: return solve(goals.right, literals)
-        return literals_temp
+        return literals_temp or solve(goals.right, literals)
     else:
         return None
 
@@ -238,11 +237,14 @@ sat_tests = [And(Or(Literal("a", True),
              And(Or(Literal("x", True),
                     Literal("y", False)),
                  Or(Literal("y", False),
-                    Literal("z", True)))] # (x || !y) && (!y || z)
+                    Literal("z", True))), # (x || !y) && (!y || z)
+                    Or(And(Literal("x", False),Literal("x", True)), Literal("y", True)), # (!x && x) || y
+                    Or(Literal("x", True), And(Literal("y", False), Literal("y", True)))] # x || (!y && y)
 
 # tests that should be unsatisfiable
 unsat_tests = [And(Literal("x", True),
-                   Literal("x", False))] # x && !x
+                   Literal("x", False)), # x && !x
+                   Or(And(Literal("x", False),Literal("x", True)), And(Literal("y", False), Literal("y", True)))] # (!x && x) || (!y && y)
 
 def run_tests():
     tests_failed = False
