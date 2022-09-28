@@ -194,6 +194,7 @@ def solve(goals, literals):
             return literals
         case And():
             literals = solve(goals.left, literals)
+            if literals is None: return None
             literals = solve(goals.right, literals)
             return literals
         case Or():
@@ -216,6 +217,7 @@ def solve(goals, literals):
         return literals
     elif isinstance(goals, And):
         literals = solve(goals.left, literals)
+        if literals is None: return None
         literals = solve(goals.right, literals)
         return literals
     elif isinstance(goals, Or):
