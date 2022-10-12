@@ -66,4 +66,5 @@ directPrereq(comp256, phil230).
 prereq(Course, Prereq):-
     directPrereq(Course, Prereq).
 prereq(Course,Prereq) :-
-    prereq(Prereq, X)
+    directPrereq(Course, X),
+    prereq(X, Prereq).
