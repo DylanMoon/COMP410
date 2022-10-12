@@ -12,10 +12,7 @@
 % then failure should occur.
 
 % ---REPLACE ME WITH CODE---
-sumAll(Low, High, Sum) :-
-    Low is High,
-    Low is Sum,
-    High is Sum.
+sumAll(Low, Low, Low).
 sumAll(Low, High, Sum) :-
     Low < High,
     NextHigh is High - 1,

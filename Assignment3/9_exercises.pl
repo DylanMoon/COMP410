@@ -17,6 +17,8 @@ xGreaterY(coordinate(X, Y)) :-
 % the coordinate as a parameter, and be named `yGreaterX`.
 
 % ---REPLACE ME WITH CODE---
+yGreaterX(coordinate(X,Y)) :-
+        X < Y.
 
 % Your definition should allow the following query to succeed:
 %
@@ -40,6 +42,8 @@ add2ToY(coordinate(X, Y), coordinate(X, NewY)) :-
 % -The new coordinate
 
 % ---REPLACE ME WITH CODE---
+addX(coordinate(X,Y),Value,coordinate(NewX,Y)) :-
+        NewX is X + Value.
 
 % Your implementation of `addX` should allow the
 % following query to succeed:
