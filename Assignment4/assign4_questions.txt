@@ -1,0 +1,30 @@
+After you've implemented the code in sat_solver.pl,
+answer the questions below.  This portion is
+purely bonus worth up to 15% of the assignment;
+you do not need to complete this for full credit.
+
+1.) The SAT solver from assignment 1 used a list, but
+    no lists are used in the Prolog-based SAT solver.
+    How is this solver able to avoid using lists?
+
+
+
+
+2.) The SAT solver from assignment 1 used a hash table
+    (i.e., a mapping) from variables to Boolean values.
+    However, no hash tables or maps are used in the
+    Prolog-based SAT solver.  How is this solver able
+    to avoid using hash tables / maps?
+
+
+
+
+3.) The function you implemented for assignment 1
+    returned either a hash table or null, depending
+    on whether or not the solver was dealing with
+    a satisfiable or unsatisfiable formula.  The
+    Prolog-based SAT solver, however, doesn't exactly
+    return anything, but it still produces values.
+    How is the Prolog-based SAT solver producing values?
+    (As a hint, this question is connected to the
+    previous question.)
