@@ -65,12 +65,12 @@ or(false, false, false).
 %
 
 eval(Result, Result).
-eval(and(Left, Right, Result), Result) :-
-    and(eval(Left, LeftResult), eval(Right, RightResult), newResult),
-    newResult = Result.
-
-eval(or(Left, Right, _), Result):-
-    or(eval(Left, LeftResult), eval(Right, RightResult), newResult),
+eval(and(Left, Right), Result) :-
+    eval(Left, Result),
+    eval(Right, Result).
+eval(or(Left, Right), Result):-
+    eval(Left, Result);
+    eval(Right, Result).
     
     
 
