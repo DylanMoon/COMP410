@@ -64,17 +64,18 @@ or(false, false, false).
 % code than that, ask to make sure you're still on track.
 %
 
+
 eval(Result, Result).
 eval(and(Left, Right), Result) :-
-    eval(Left, Result),
-    eval(Right, Result).
-eval(or(Left, Right), Result):-
-    eval(Left, Result);
-    eval(Right, Result).
+    eval(Left, LResult),
+    eval(Right, RResult),
+    and(LResult, RResult, Result).
+ eval(or(Left, Right), Result):-
+    eval(Left, LResult),
+    eval(Right, RResult),
+    or(LResult, RResult, Result).
     
     
-
-
 
 % ---Begin Testing-Related Code---
 %
