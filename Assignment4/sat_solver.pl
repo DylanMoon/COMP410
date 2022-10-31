@@ -52,8 +52,14 @@
 % code than that, ask to make sure you're still on track.
 %
 
-isTrue(lit(X,X)).
-isTrue()
+isTrue(lit(Result,Result)).
+isTrue(and(Left,Right)) :-
+    isTrue(Left),
+    isTrue(Right).
+isTrue(or(Left,Right)):-
+    isTrue(Left);
+    istTrue(Right).
+
 
 
 % ---Begin Testing-Related Code---
