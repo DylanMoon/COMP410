@@ -67,6 +67,27 @@
 % T = negate(number(0)) ;
 %
 
+makeTest(_, number(0)).
+makeTest(Bound, plus(E1, E2)):-
+    Bound > 0,
+    NewBound is Bound -1,
+    makeTest(NewBound, E1),
+    makeTest(NewBound, E2).
+makeTest(Bound, minus(E1, E2)):-
+    Bound > 0,
+    NewBound is Bound -1,
+    makeTest(NewBound, E1),
+    makeTest(NewBound, E2).
+makeTest(Bound, mult(E1, E2)):-
+    Bound > 0,
+    NewBound is Bound -1,
+    makeTest(NewBound, E1),
+    makeTest(NewBound, E2).
+makeTest(Bound, negate(E1)):-
+    Bound > 0,
+    NewBound is Bound -1,
+    makeTest(NewBound, E1).
+
 
 % TODO: Write a procedure named makeTestWithNums
 % that takes:
