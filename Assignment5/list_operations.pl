@@ -124,7 +124,11 @@ myLength([_ | Tail], Result):-
 %
 % Code expectation: ~12 lines
 
+myFlatten([],[]).
+myFlatten([Head | []], Head).
+myFlatten([[Head | InnerTail] | OuterTail], something goes here) :-
 
+    
 
 % 7. TODO: Write a procedure named insertPosition that
 %    takes:
@@ -153,7 +157,11 @@ myLength([_ | Tail], Result):-
 %
 % Code expectation: ~5 lines
 
-% insertPosition([Head | Tail]).
+insertPosition(List, Element, 0, [Element | List]).
+insertPostition([Head | Tail1], Element, N, [Head | Tail2]) :-
+    NminusOne is N - 1,
+    insertPosition(Tail1, Element, NminusOne, Tail2).
+
 
 % 8. TODO: Write a procedure named insertSorted that takes:
 %    1.) A sorted list of integers
