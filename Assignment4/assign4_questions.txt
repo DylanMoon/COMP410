@@ -7,7 +7,7 @@ you do not need to complete this for full credit.
     no lists are used in the Prolog-based SAT solver.
     How is this solver able to avoid using lists?
 
-
+Prolog is leveraging the stack like call structure of both the queries and how the methods get called.
 
 
 2.) The SAT solver from assignment 1 used a hash table
@@ -16,7 +16,7 @@ you do not need to complete this for full credit.
     Prolog-based SAT solver.  How is this solver able
     to avoid using hash tables / maps?
 
-
+There is no need for the hash table because once a prolog call gets to the base case it will either return with the value true or false, which gets associated or unified with the variables.
 
 
 3.) The function you implemented for assignment 1
@@ -28,3 +28,5 @@ you do not need to complete this for full credit.
     How is the Prolog-based SAT solver producing values?
     (As a hint, this question is connected to the
     previous question.)
+
+If the associated values of the variable can unify then there is no issue and the procedure (probably the wrong term) can continue. Only if they can't unify will the current execution terminate and return a false value.
