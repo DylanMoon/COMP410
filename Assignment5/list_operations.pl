@@ -13,7 +13,7 @@
 %
 % Code expectation: 1 line
 
-myFirst([Head | Tail], Head).
+myFirst([Head | _], Head).
 
 % 2. TODO: Write a procedure named myLast that takes:
 %    1.) A list
@@ -28,7 +28,7 @@ myFirst([Head | Tail], Head).
 %
 % Code expectation: ~3 lines
 
-myLast([Head | []], Head);
+myLast([Head | []], Head).
 myLast([_ | Tail], Output) :-
     myLast(Tail, Output).
 
@@ -46,9 +46,9 @@ myLast([_ | Tail], Output) :-
 %
 % Code expectation: ~3 lines
 
-myInit([Head | []], Head)
-myInit([_ | Tail], Result):-
-    myInit(Tail, Result).
+myInit([_ | []], []).
+myInit([Head | Tail], [Head | Tail2]):-
+    myInit(Tail, Tail2).
 
 % 4. TODO: Write a procedure named myAppend that takes:
 %    1.) A list
@@ -75,9 +75,9 @@ myInit([_ | Tail], Result):-
 % third query above to get all the solutions.
 % Code expectation: ~3 lines
 
-myAppend([Head | []], List, [Head | List]).
-myAppend([_ | Tail], List, Result):-
-    myAppend(Tail, List, Result).
+myAppend([], List, List).
+myAppend([Head | Tail1], List, [Head | Tail2]) :-
+    myAppend(Tail1, List, Tail2).
 
 % 5. TODO: Write a procedure named myLength that takes:
 %    1.) A list
@@ -153,7 +153,7 @@ myLength([_ | Tail], Result):-
 %
 % Code expectation: ~5 lines
 
-insertPosition([Head | Tail])
+% insertPosition([Head | Tail]).
 
 % 8. TODO: Write a procedure named insertSorted that takes:
 %    1.) A sorted list of integers
