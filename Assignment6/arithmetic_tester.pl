@@ -129,6 +129,29 @@ makeTest(Bound, negate(E1)):-
 % T = negate(number(2)) ;
 % T = negate(number(3)) .
 
+makeTestWithNums(_, [Head|_], number(Head)).
+makeTestWithNums(_, [_ | Tail], Result):-
+    makeTestWithNums(0, Tail, Result).
+makeTestWithNums(Bound, List, plus(Exp1, Exp2)):-
+    Bound > 0,
+    NewBound is Bound - 1,
+    makeTestWithNums(NewBound, List, Exp1),
+    makeTestWithNums(NewBound, List, Exp2).
+makeTestWithNums(Bound, List, minus(Exp1, Exp2)):-
+    Bound > 0,
+    NewBound is Bound - 1,
+    makeTestWithNums(NewBound, List, Exp1),
+    makeTestWithNums(NewBound, List, Exp2).
+makeTestWithNums(Bound, List, mult(Exp1, Exp2)):-
+    Bound > 0,
+    NewBound is Bound - 1,
+    makeTestWithNums(NewBound, List, Exp1),
+    makeTestWithNums(NewBound, List, Exp2).
+makeTestWithNums(Bound, List, negate(Exp1)):-
+    Bound > 0,
+    NewBound is Bound - 1,
+    makeTestWithNums(NewBound, List, Exp1).
+
 
 % ---Begin Testing-Related Code---
 
