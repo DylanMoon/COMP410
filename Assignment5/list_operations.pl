@@ -184,6 +184,13 @@ insertPosition([Head | Tail1], Element, N, [Head | Tail2]) :-
 %
 % Code expectation: ~6 lines
 
+insertSorted([], Element, [Element]).
+insertSorted([Head | Tail], Element, [Element, Head | Tail]) :-
+    Head >= Element.
+insertSorted([Head | Tail1], Element, [Head | Tail2]):-
+    Head < Element,
+    insertSorted(Tail1, Element, Tail2).
+
 
 
 % 9. TODO: Write a procedure named insertionSort that
