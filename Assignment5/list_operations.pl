@@ -129,6 +129,8 @@ myFlatten([Head | []], Head).
 % myFlatten([[Head | InnerTail] | OuterTail], something goes here) :-
 %     myFlatten(Head, OuterTail).
 
+% The hints are important here!
+
     
 
 % 7. TODO: Write a procedure named insertPosition that
@@ -216,3 +218,4 @@ insertSorted([Head | Tail1], Element, [Head | Tail2]):-
 %
 % Code expectation: ~6 lines
 
+insertionSort([],[]).
