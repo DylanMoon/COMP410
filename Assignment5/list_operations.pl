@@ -124,12 +124,32 @@ myLength([_ | Tail], Result):-
 %
 % Code expectation: ~12 lines
 
-myFlatten([],[]).
-myFlatten([Head | []], Head).
-% myFlatten([[Head | InnerTail] | OuterTail], something goes here) :-
-%     myFlatten(Head, OuterTail).
+% myFlatten([],[]).
+% myFlatten([Head | Tail], Result):-
+%     Head \= [_],
+%     myAppend([Head], Accumulator, Result),
+%     myFlatten(Tail,Accumulator).
+% myFlatten([Head | Tail], Result):-
+%     Head \= _,
+%     Head is [H|T],
+%     myFlatten(H, NewResult),
+%     myAppend(NewResult, Accumulator, Result),
+%     myFlatten(Tail, Accumulator).
 
-% The hints are important here!
+% Documentation's implementation:
+% myFlatten(List, FlatList) :-
+% myFlatten(List, [], FlatList0),
+%     !,
+%     FlatList = FlatList0.
+% myFlatten(Var, Tl, [Var|Tl]) :-
+%       var(Var),
+%       !.
+% myFlatten([], Tl, Tl) :- !.
+% myFlatten([Hd|Tl], Tail, List) :-
+%       !,
+%       myFlatten(Hd, FlatHeadTail, List),
+%       myFlatten(Tl, Tail, FlatHeadTail).
+% myFlatten(NonList, Tl, [NonList|Tl]).
 
     
 
