@@ -218,4 +218,10 @@ insertSorted([Head | Tail1], Element, [Head | Tail2]):-
 %
 % Code expectation: ~6 lines
 
-insertionSort([],[]).
+insertionSort(Remaining, Sorted) :-
+    insertionSortHelper(Remaining, [], Sorted).
+insertionSortHelper([], Sorted, Sorted).
+insertionSortHelper([Head|Tail], CurrentlySorted, Sorted):-
+    insertSorted(CurrentlySorted, Head, UpdatedSorted),
+    insertionSortHelper(Tail, UpdatedSorted, Sorted).
+
